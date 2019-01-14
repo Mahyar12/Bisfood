@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Qtypes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @qtypes.each do |qtype| %>
+      <tr>
+        <td><%= qtype.name %></td>
+        <td><%= link_to 'Show', qtype %></td>
+        <td><%= link_to 'Edit', edit_qtype_path(qtype) %></td>
+        <td><%= link_to 'Destroy', qtype, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Qtype', new_qtype_path %>

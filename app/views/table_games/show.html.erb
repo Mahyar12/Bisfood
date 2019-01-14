@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Show chars:</strong>
+  <%= @table_game.show_chars %>
+</p>
+
+<p>
+  <strong>Words:</strong>
+  <%= @table_game.words %>
+</p>
+
+<%= link_to 'Edit', edit_table_game_path(@table_game) %> |
+<%= link_to 'Back', table_games_path %>

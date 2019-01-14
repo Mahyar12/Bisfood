@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @category_question.category_id %>
+</p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @category_question.question_id %>
+</p>
+
+<%= link_to 'Edit', edit_category_question_path(@category_question) %> |
+<%= link_to 'Back', category_questions_path %>

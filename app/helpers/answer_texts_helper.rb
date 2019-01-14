@@ -1,0 +1,2 @@
+module AnswerTextsHelper
+end

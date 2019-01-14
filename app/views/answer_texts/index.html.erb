@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Answer Texts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Atext</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @answer_texts.each do |answer_text| %>
+      <tr>
+        <td><%= answer_text.atext %></td>
+        <td><%= link_to 'Show', answer_text %></td>
+        <td><%= link_to 'Edit', edit_answer_text_path(answer_text) %></td>
+        <td><%= link_to 'Destroy', answer_text, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Answer Text', new_answer_text_path %>

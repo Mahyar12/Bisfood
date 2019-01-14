@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Answer question:</strong>
+  <%= @answer.answer_question_id %>
+</p>
+
+<p>
+  <strong>Category answer:</strong>
+  <%= @answer.category_answer_id %>
+</p>
+
+<p>
+  <strong>Answer type:</strong>
+  <%= @answer.answer_type %>
+</p>
+
+<p>
+  <strong>Answer type:</strong>
+  <%= @answer.answer_type_id %>
+</p>
+
+<%= link_to 'Edit', edit_answer_path(@answer) %> |
+<%= link_to 'Back', answers_path %>
