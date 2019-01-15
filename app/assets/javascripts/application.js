@@ -14,3 +14,7 @@
 //= require turbolinks
 //= require activestorage
 //= require_tree .
+
+
+import * as ActiveStorage from "@rails/activestorage"
+ActiveStorage.start()

@@ -10,7 +10,8 @@ class ImagesController < ApplicationController
   # GET /images/1
   # GET /images/1.json
   def show
-    @image_url = url_for(Image.find(params[:id]).image)
+    image = Image.find(params[:id]).image
+    @image_url = url_for(image) if image.attached? 
   end
 
   # GET /images/new
@@ -70,6 +71,6 @@ class ImagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def image_params
-      params.require(:image).permit(:name)
+      params.require(:image).permit(:name, :image)
     end
 end
