@@ -10,11 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require global/jquery-3.3.1.min.js
+//= require global/jquery-ui.min.js
+//= require global/bootstrap.min.js
+//= require global/bootstrap-table.min.js
+//= require global/bootstrap-table-fa-IR.min.js
 //= require rails-ujs
 //= require turbolinks
 //= require activestorage
-//= require_tree .
+//= require_tree ./global
 
 
-import * as ActiveStorage from "@rails/activestorage"
-ActiveStorage.start()
+// import * as ActiveStorage from "@rails/activestorage"
+// ActiveStorage.start()

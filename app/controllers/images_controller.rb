@@ -23,6 +23,31 @@ class ImagesController < ApplicationController
   def edit
   end
 
+  def upload 
+    if params.has_key?(:images)
+      @files = []
+      params[:images].each do |image|
+        i = Image.new(name: image.original_filename)
+        i.save!
+        i.image.attach(
+          io: image,
+          filename: image.original_filename,
+          content_type: image.content_type
+        )
+        @files << {file: url_for(i.image), id: i.id}
+      end
+      respond_to do |format|
+        format.json { render json: { files: @files, status: 200 }}
+        format.js
+      end
+    else 
+      respond_to do |format|
+        format.json { render json: { status: 404 }}
+        format.js
+      end
+    end
+  end
+
   # POST /images
   # POST /images.json
   def create

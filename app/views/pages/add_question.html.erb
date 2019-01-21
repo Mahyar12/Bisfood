@@ -1,0 +1,33 @@
+<div class="row">
+	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+		<form id="form" action="#">
+			<div class="field">
+				Question: <input type="text" id="question" name="question"><br>
+			</div>
+
+			<div class="field">
+				<select id="qtypes">
+				  <% @qtypes.each do |qtype| %>
+				    <option value="<%= qtype.name %>"><%= qtype.name %></option>      
+				  <% end %>
+				</select>
+			</div>		
+
+			<button class="btn btn-success btn-lg" type="button" id="add-ans" data-toggle="dropdown" style="width:50px;margin:auto;font-size:20px">
+		        +
+	                              
+	        </button>
+	        <button class="btn btn-success btn-lg" type="button" id="delete-ans" data-toggle="dropdown" style="width:50px;margin:auto;font-size:20px">
+	            -
+	          
+	        </button>
+	        <br>
+			<div id="ans">
+				
+			</div>			
+			<input type="submit" value="Submit">
+		</form> 
+	</div>
+</div>
+
+
