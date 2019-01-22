@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
         q = Question.new(content: question[:question])
         q.qtype = Qtype.find_by_name(question[:type])
         q.save!
+        q.categories << Category.find_by_name(question[:category])
         question[:answers].each do |j, answer|
         
           a = q.answers.create(answer_type: answer[:answer_type], answer_type_id: answer[:answer_type_id])    

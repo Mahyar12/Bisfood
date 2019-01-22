@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   def add_question
     @question = Question.new
     @qtypes = Qtype.all
+    @categories = Category.all
     render layout: 'application'
   end
 

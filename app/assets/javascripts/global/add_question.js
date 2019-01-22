@@ -87,7 +87,7 @@ $("#delete-ans").click(function(){
 $("#form").submit(function(evt){   
     evt.preventDefault();
 	req = {};
-	req.questions = [{question: $("#question").val(), type: $('#qtypes').val(), answers: []}];
+	req.questions = [{question: $("#question").val(), category: $('#qcategories').val(), type: $('#qtypes').val(), answers: []}];
     if($('#qtypes').val() == "image" || $('#qtypes').val() == "portrait"){
     	    var data = new FormData();
 	    $( "#ans input" ).each(function( index ) {	   
@@ -119,6 +119,9 @@ $("#form").submit(function(evt){
 		       data: req,
 		       success: function (response) {
 		       	alert("OK");	
+		       	$("#ans").empty();
+		       	$("#question").val("");
+		       	$('#qtypes').prop('disabled', false);
 		       }
 		    });
 	       }
@@ -138,18 +141,14 @@ $("#form").submit(function(evt){
 	       data: req,
 	       success: function (response) {
 	       	alert("OK");	
+	       	$("#ans").empty();
+	       	$("#question").val("");
+	       	$('#qtypes').prop('disabled', false);
 	       }
 	    });
 	}
 	else if($('#qtypes').val() == "table"){
 		words = {words: [], places: []};
-	  //   $('#table tr td').each(function(index) {
-	  //   	console.log("index " + index + " " + (Math.floor(index/7)+1) + " " + (((Math.floor(index/8)+1)*8-index%8)-1));
-			// console.log($(this).text()); 
-			// if($(this).text() !== ""){
-				
-			// }   		    
-	 	// });
 	 	
  		for(j = 0 ; j < 6 ; j ++){
 	 		for(i = 7 ; i >= 0 ; i--){	
@@ -214,6 +213,9 @@ $("#form").submit(function(evt){
 	       data: req,
 	       success: function (response) {
 	       	alert("OK");	
+	       	$("#ans").empty();
+	       	$("#question").val("");
+	       	$('#qtypes').prop('disabled', false);
 	       }
 	    });
 	}
