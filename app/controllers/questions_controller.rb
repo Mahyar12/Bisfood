@@ -2,33 +2,35 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   def add_questions
     if params.has_key?(:questions)
-      @questions = params[:questions]
-      @questions.each do |i, question| 
-        q = Question.new(content: question[:question])
-        q.qtype = Qtype.find_by_name(question[:type])
-        q.save!
-        @category = Category.find_by_name(question[:category])
-        q.categories << @category
-        question[:answers].each do |j, answer|
-        
-          a = q.answers.create(answer_type: answer[:answer_type], answer_type_id: answer[:answer_type_id])    
-          a.categories << @category
-          if (q.qtype.name == "text" or q.qtype.name == "twoans") and a.answer_type == "text"
-            t = AnswerText.new(atext: answer[:answer])
-            t.save!
-            a.answer_type_id = t.id
+      @questions = params[:questions]      
+      @questions.each do |i, question|
+        if question[:answers].length > 0
+          q = Question.new(content: question[:question])
+          q.qtype = Qtype.find_by_name(question[:type])
+          q.save!
+          @category = Category.find_by_name(question[:category])
+          q.categories << @category
+          question[:answers].each do |j, answer|
+          
+            a = q.answers.create(answer_type: answer[:answer_type], answer_type_id: answer[:answer_type_id])    
+            a.categories << @category
+            if (q.qtype.name == "text" or q.qtype.name == "twoans") and a.answer_type == "text"
+              t = AnswerText.new(atext: answer[:answer])
+              t.save!
+              a.answer_type_id = t.id
 
-          elsif q.qtype.name == "table" and a.answer_type == "table"
-            t = TableGame.new(show_chars: answer[:show_chars], words: answer[:words])
-            t.save!
-            a.answer_type_id = t.id
-          end 
-          a.save!
-          aq = AnswerQuestion.where("question_id == ? and answer_id == ?", q[:id], a[:id])[0]
-          aq.correct = answer[:correct]
-          aq.save!
+            elsif q.qtype.name == "table" and a.answer_type == "table"
+              t = TableGame.new(show_chars: answer[:show_chars], words: answer[:words])
+              t.save!
+              a.answer_type_id = t.id
+            end 
+            a.save!
+            aq = AnswerQuestion.where("cast(question_id as text) == ? and cast(answer_id as text) == ?", q[:id], a[:id])[0]
+            aq.correct = answer[:correct]
+            aq.save!
+          end
+          q.save!    
         end
-        q.save!
       end
       render json: {status: 200, message: "Created successfully"}
     else
@@ -41,8 +43,11 @@ class QuestionsController < ApplicationController
 
     @response = @questions.map do |q|
       @answers = []
-      @answers << AnswerQuestion.where("question_id == ? and correct == ?", q.id, 1).shuffle[0].answer
-      AnswerQuestion.where("question_id == ? and correct == ?", q.id, 0).shuffle[0..2].each do |aq|
+      ca = AnswerQuestion.where("cast(question_id as text) == ? and cast(correct as text) == ?", q.id, "1").shuffle[0]
+      if ca != nil
+        @answers << ca.answer
+      end
+      AnswerQuestion.where("cast(question_id as text) == ? and cast(correct as text) == ?", q.id, "0").shuffle[0..2].each do |aq|
         @answers << aq.answer
       end
       if q.qtype.name == "twoans"
@@ -55,13 +60,13 @@ class QuestionsController < ApplicationController
       @correct = 0
       @a = @answers.each_with_index.map do |ans, i|
         puts ans.answer_questions.all.to_json 
-        if ans.answer_questions.where("question_id == ?", q.id)[0].correct == 1
+        if ans.answer_questions.where("cast(question_id as text) == ?", q.id)[0].correct == 1
           @correct = i
         end
         if ans.answer_type == "image"
-          {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: ans.answer_questions.where("question_id == ?", q.id)[0].correct}
+          {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: ans.answer_questions.where("cast(question_id as text) == ?", q.id)[0].correct}
         elsif ans.answer_type == "text"
-          {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: ans.answer_questions.where("question_id == ?", q.id)[0].correct}
+          {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: ans.answer_questions.where("cast(question_id as text) == ?", q.id)[0].correct}
         elsif ans.answer_type == "table"
           tg = TableGame.find(ans.answer_type_id)
           {id: ans.id, show_chars: tg.show_chars, words: tg.words }

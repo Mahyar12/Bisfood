@@ -87,6 +87,10 @@ $("#delete-ans").click(function(){
 $("#form").submit(function(evt){   
     evt.preventDefault();
 	req = {};
+	if($( "#ans input" ).length == 0){
+		alert("Please add answers");
+		return;
+	}
 	req.questions = [{question: $("#question").val(), category: $('#qcategories').val(), type: $('#qtypes').val(), answers: []}];
     if($('#qtypes').val() == "image" || $('#qtypes').val() == "portrait"){
     	    var data = new FormData();
