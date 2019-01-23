@@ -3,8 +3,7 @@ class QuestionsController < ApplicationController
   def add_questions
     if params.has_key?(:questions)
       @questions = params[:questions]      
-      @questions.each do |i, question|
-        if question[:answers].length > 0
+      @questions.each do |i, question|        
           q = Question.new(content: question[:question])
           q.qtype = Qtype.find_by_name(question[:type])
           q.save!
@@ -29,8 +28,7 @@ class QuestionsController < ApplicationController
             aq.correct = answer[:correct]
             aq.save!
           end
-          q.save!    
-        end
+          q.save!      
       end
       render json: {status: 200, message: "Created successfully"}
     else
