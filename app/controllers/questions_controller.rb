@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
               a.answer_type_id = t.id
             end 
             a.save!
-            aq = AnswerQuestion.where("question_id as text = ? and answer_id = ?", q[:id], a[:id])[0]
+            aq = AnswerQuestion.where("question_id = ? and answer_id = ?", q[:id], a[:id])[0]
             aq.correct = answer[:correct]
             aq.save!
           end
