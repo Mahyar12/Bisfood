@@ -7,11 +7,12 @@ class QuestionsController < ApplicationController
         q = Question.new(content: question[:question])
         q.qtype = Qtype.find_by_name(question[:type])
         q.save!
-        q.categories << Category.find_by_name(question[:category])
+        @category = Category.find_by_name(question[:category])
+        q.categories << @category
         question[:answers].each do |j, answer|
         
           a = q.answers.create(answer_type: answer[:answer_type], answer_type_id: answer[:answer_type_id])    
-            
+          a.categories << @category
           if (q.qtype.name == "text" or q.qtype.name == "twoans") and a.answer_type == "text"
             t = AnswerText.new(atext: answer[:answer])
             t.save!
