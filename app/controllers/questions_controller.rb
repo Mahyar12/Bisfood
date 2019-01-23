@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
               a.answer_type_id = t.id
             end 
             a.save!
-            aq = AnswerQuestion.where("cast(question_id as text) == ? and cast(answer_id as text) == ?", q[:id].to_s, a[:id].to_s)[0]
+            aq = AnswerQuestion.where("question_id as text = ? and answer_id = ?", q[:id], a[:id])[0]
             aq.correct = answer[:correct]
             aq.save!
           end
@@ -41,11 +41,11 @@ class QuestionsController < ApplicationController
 
     @response = @questions.map do |q|
       @answers = []
-      ca = AnswerQuestion.where("cast(question_id as text) == ? and cast(correct as text) == ?", q.id.to_s, "1").shuffle[0]
+      ca = AnswerQuestion.where("question_id = ? and correct = ?", q.id, 1).shuffle[0]
       if ca != nil
         @answers << ca.answer
       end
-      AnswerQuestion.where("cast(question_id as text) == ? and cast(correct as text) == ?", q.id.to_s, "0").shuffle[0..2].each do |aq|
+      AnswerQuestion.where("question_id = ? and correct = ?", q.id, 0).shuffle[0..2].each do |aq|
         @answers << aq.answer
       end
       if q.qtype.name == "twoans"
@@ -58,13 +58,13 @@ class QuestionsController < ApplicationController
       @correct = 0
       @a = @answers.each_with_index.map do |ans, i|
         puts ans.answer_questions.all.to_json 
-        if ans.answer_questions.where("cast(question_id as text) == ?", q.id.to_s)[0].correct == 1
+        if ans.answer_questions.where("question_id = ?", q.id)[0].correct == 1
           @correct = i
         end
         if ans.answer_type == "image"
-          {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: ans.answer_questions.where("cast(question_id as text) == ?", q.id.to_s)[0].correct}
+          {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: ans.answer_questions.where("question_id = ?", q.id)[0].correct}
         elsif ans.answer_type == "text"
-          {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: ans.answer_questions.where("cast(question_id as text) == ?", q.id.to_s)[0].correct}
+          {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: ans.answer_questions.where("question_id = ?", q.id)[0].correct}
         elsif ans.answer_type == "table"
           tg = TableGame.find(ans.answer_type_id)
           {id: ans.id, show_chars: tg.show_chars, words: tg.words }
