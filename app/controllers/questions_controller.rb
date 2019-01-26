@@ -45,8 +45,14 @@ class QuestionsController < ApplicationController
       if ca != nil
         @answers << ca.answer
       end
-      AnswerQuestion.where("question_id = ? and correct = ?", q.id, 0).shuffle[0..2].each do |aq|
-        @answers << aq.answer
+      if q.qtype.name == "portrait"
+        CategoryAnswer.joins("INNER JOIN answers ON answers.id = category_answers.answer_id and answers.answer_type = 'image' ").joins("INNER JOIN answer_questions ON answer_questions.answer_id = answers.id").where("question_id <> ?", q.id).shuffle[0..2].each do |aq|
+          @answers << aq.answer
+        end
+      else
+        AnswerQuestion.where("question_id = ? and correct = ?", q.id, 0).shuffle[0..2].each do |aq|
+          @answers << aq.answer
+        end
       end
       if q.qtype.name == "twoans"
         @answers = @answers.shuffle[0..1]
@@ -57,14 +63,15 @@ class QuestionsController < ApplicationController
       end
       @correct = 0
       @a = @answers.each_with_index.map do |ans, i|
-        puts ans.answer_questions.all.to_json 
-        if ans.answer_questions.where("question_id = ?", q.id)[0].correct == 1
+        # puts ans.answer_questions.all.to_json 
+        corr = ans.answer_questions.where("question_id = ?", q.id)[0] == nil ? 0 : ans.answer_questions.where("question_id = ?", q.id)[0].correct
+        if corr == 1
           @correct = i
         end
         if ans.answer_type == "image"
-          {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: ans.answer_questions.where("question_id = ?", q.id)[0].correct}
+          {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: corr}
         elsif ans.answer_type == "text"
-          {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: ans.answer_questions.where("question_id = ?", q.id)[0].correct}
+          {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: corr}
         elsif ans.answer_type == "table"
           tg = TableGame.find(ans.answer_type_id)
           {id: ans.id, show_chars: tg.show_chars, words: tg.words }
