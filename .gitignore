@@ -13,6 +13,7 @@
 /config/database.yml
 /storage/*
 Gemfile.lock
+/config/puma.rb
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
