@@ -79,7 +79,7 @@ class QuestionsController < ApplicationController
       end
         { id: q.id, content: q.content, qtype: q.qtype.name, correct: @correct, answers: @a }   
     end
-    render json: @response.to_json
+    render json: {questions: @response}.to_json
   end
 
   # GET /questions

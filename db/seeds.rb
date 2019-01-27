@@ -7,3 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 qtypes = Qtype.create([{name: "image"}, {name: "portrait"}, {name: "text"}, {name: "twoans"}, {name: "table"}])
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
