@@ -213,7 +213,7 @@ $("#form").submit(function(evt){
 	 	}
 	 	console.log(words);
 	 	req.questions[0].answers.push({correct: 1, show_chars: $("#show-words").val(), words: words,  answer_type: "table"});
-	 	console.log(req);
+	 	console.log(JSON.stringify(req));
 	 	$.ajax({
 	       url: "/add_question.json",
 	       type: 'POST',
