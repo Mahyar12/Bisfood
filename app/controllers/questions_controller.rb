@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: [:get_questions]
+  # before_action :authenticate_user!, except: [:get_questions, :add_questions]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   def add_questions
     if params.has_key?(:questions)

@@ -102,7 +102,8 @@ $("#form").submit(function(evt){
 				req.questions[0].answers.push({answer_type_id: null, answer_type: "image", correct: ($(this).prop('checked')?1:0)});
 	    });
 	    // data.append('question', $("#question").val());
-	    // data.append('type', $("#qtypes").val());	    
+	    // data.append('type', $("#qtypes").val());	 
+	    console.log(req);   
 	    $.ajax({
 	       url: "/images/upload",
 	       type: 'POST',
@@ -139,6 +140,7 @@ $("#form").submit(function(evt){
 			else 
 				req.questions[0].answers[req.questions[0].answers.length-1].correct = ($(this).prop('checked')?1:0);					
 	    });	    
+	    console.log(req);
 	    $.ajax({
 	       url: "/add_question.json",
 	       type: 'POST',
@@ -211,6 +213,7 @@ $("#form").submit(function(evt){
 	 	}
 	 	console.log(words);
 	 	req.questions[0].answers.push({correct: 1, show_chars: $("#show-words").val(), words: words,  answer_type: "table"});
+	 	console.log(req);
 	 	$.ajax({
 	       url: "/add_question.json",
 	       type: 'POST',
