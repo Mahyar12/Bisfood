@@ -3,7 +3,7 @@ module Api
     class QuestionsController < Api::V1::BaseController
       def add_questions
         if params.has_key?(:data) and params[:data].has_key?(:questions)
-          @questions = params[:data][:questions]      
+          @questions = JSON.parse(params[:data])
           @questions.each do |question| 
               q = Question.new(content: question[:question])
               q.qtype = Qtype.find_by_name(question[:type])
