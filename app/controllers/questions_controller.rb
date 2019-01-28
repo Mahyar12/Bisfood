@@ -4,7 +4,8 @@ class QuestionsController < ApplicationController
   def add_questions
     if params.has_key?(:questions)
       @questions = params[:questions]      
-      @questions.each do |i, question|        
+      @questions.each do |i, question|    
+          puts question[:question]    
           q = Question.new(content: question[:question])
           q.qtype = Qtype.find_by_name(question[:type])
           q.save!

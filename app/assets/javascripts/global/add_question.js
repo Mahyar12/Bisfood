@@ -1,6 +1,4 @@
 
-
-console.log("hh");
 $("#add-ans").click(function(){
 	if($('#qtypes').val() == "image" || $('#qtypes').val() == "portrait")
 		$("#ans").append('<div><div class="row"><div class="col-md-12"><input type="file" name="image"><input type="checkbox"></div></div><hr></div>');  
@@ -103,7 +101,7 @@ $("#form").submit(function(evt){
 	    });
 	    // data.append('question', $("#question").val());
 	    // data.append('type', $("#qtypes").val());	 
-	    console.log(req);   
+	    console.log(JSON.stringify(req));   
 	    $.ajax({
 	       url: "/images/upload",
 	       type: 'POST',
@@ -140,7 +138,7 @@ $("#form").submit(function(evt){
 			else 
 				req.questions[0].answers[req.questions[0].answers.length-1].correct = ($(this).prop('checked')?1:0);					
 	    });	    
-	    console.log(req);
+	    console.log(JSON.stringify(req));   
 	    $.ajax({
 	       url: "/add_question.json",
 	       type: 'POST',

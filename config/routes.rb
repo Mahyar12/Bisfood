@@ -1,6 +1,15 @@
+require 'api_constraints'
+
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  namespace :api, defaults: {format: 'json'} do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      post '/add_question' => "questions#add_questions"
+      get '/questions' => "questions#get_questions"
+      resources :questions
+    end
+  end
   devise_for :users
   resources :users
   post '/images/upload' => 'images#upload'
