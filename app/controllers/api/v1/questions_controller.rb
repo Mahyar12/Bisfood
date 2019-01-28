@@ -2,8 +2,8 @@ module Api
   module V1
     class QuestionsController < Api::V1::BaseController
       def add_questions
-        if params.has_key?(:questions)
-          @questions = params[:questions]      
+        if params.has_key?(:data) and params[:data].has_key?(:questions)
+          @questions = params[:data][:questions]      
           @questions.each do |question| 
               q = Question.new(content: question[:question])
               q.qtype = Qtype.find_by_name(question[:type])
