@@ -77,10 +77,11 @@ module Api
               {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: corr}
             elsif ans.answer_type == "table"
               tg = TableGame.find(ans.answer_type_id)
-              {id: ans.id, show_chars: tg.show_chars, words: tg.words }
+              @show_chars = tg.show_chars 
+              {id: ans.id, value: tg.words, correct: 1 }
             end
           end
-            { id: q.id, content: q.content, qtype: q.qtype.name, correct: @correct, answers: @a }   
+            { id: q.id, content: @show_chars, qtype: q.qtype.name, correct: @correct, answers: @a }   
         end
         render json: {questions: @response}.to_json
       end
