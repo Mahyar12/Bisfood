@@ -22,7 +22,7 @@ module Api
                   a.answer_type_id = t.id
 
                 elsif q.qtype.name == "table" and a.answer_type == "table"
-                  t = TableGame.new(show_chars: answer[:show_chars], words: answer[:words])
+                  t = TableGame.new(show_chars: answer[:show_chars], words: answer[:words].to_json)
                   t.save!
                   a.answer_type_id = t.id
                 end 
