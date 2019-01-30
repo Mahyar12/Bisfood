@@ -9,11 +9,23 @@ module Api
               render json: {result: "ERROR", message: "user id is not valid", status: 400}
               return
             end  
-            c = Chat.where("(user_id = ? and suser_id = ?) or (user_id = ? and suer_id = ?)", @u1.id, @u2.id, @u2.id, @u1.id).first
+            c = Chat.where("(user_id = ? and suser_id = ?) or (user_id = ? and suser_id = ?)", @u1.id, @u2.id, @u2.id, @u1.id).first
             @m = c.messages.new(mtext: params[:message])
-            m.user = @u1
-            m.save!
+            @m.user = @u1
+            @m.save!
             render json: @m
+          else
+            render json: {result: "ERROR", message: "not enough parameters are sent", status: 404}
+          end
+        end
+
+        def index 
+          if params.has_key?(:chat_id)
+            @messages = Chat.find(params[:chat_id]).messages
+            @response = @messages.map do |m|
+              { id: m.id, message: m.mtext, sender: m.user.user_identification }   
+            end
+            render json: @response
           else
             render json: {result: "ERROR", message: "not enough parameters are sent", status: 404}
           end

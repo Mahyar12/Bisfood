@@ -14,6 +14,8 @@
 /storage/*
 Gemfile.lock
 /config/puma.rb
+/realtime/node_modules/*
+/realtime/package-lock.json
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

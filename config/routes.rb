@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       post '/add_question' => "questions#add_questions"
       get '/questions' => "questions#get_questions"
+      post '/new_message' => "messages#new_message"
+      post '/messages' => "messages#index"
+      get '/chats' => "chats#index"
       resources :questions
     end
   end
