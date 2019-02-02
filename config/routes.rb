@@ -1,6 +1,7 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
+  resources :friends
   resources :messages
   resources :chats
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
       get '/messages' => "messages#index"
       get '/chats' => "chats#index"
       post '/users/sign_up' => "users#sign_up"
+      post '/friends/add_friend' => "friends#add_friend"
       resources :questions
     end
   end

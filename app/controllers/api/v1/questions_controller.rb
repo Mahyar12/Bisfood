@@ -72,16 +72,18 @@ module Api
               @correct = i
             end
             if ans.answer_type == "image"
+              @content = q.content
               {id: ans.id, value: url_for(Image.find(ans.answer_type_id).image), correct: corr}
             elsif ans.answer_type == "text"
+              @content = q.content
               {id: ans.id, value: AnswerText.find(ans.answer_type_id).atext, correct: corr}
             elsif ans.answer_type == "table"
               tg = TableGame.find(ans.answer_type_id)
-              @show_chars = tg.show_chars 
+              @content = tg.show_chars 
               {id: ans.id, value: tg.words, correct: 1 }
             end
           end
-            { id: q.id, content: @show_chars, qtype: q.qtype.name, correct: @correct, answers: @a }   
+            { id: q.id, content: @content, qtype: q.qtype.name, correct: @correct, answers: @a }   
         end
         render json: {questions: @response}.to_json
       end

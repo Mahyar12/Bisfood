@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   has_many :chats
   has_many :schats, :class_name => 'Chat', :foreign_key => 'suser_id'
+
+  has_many :friends
+  has_many :sfriends, :class_name => 'Friend', :foreign_key => 'suser_id'
+  
   has_many :messages
 
 	before_validation :downcase_username
