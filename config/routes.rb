@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get '/chats' => "chats#index"
       post '/users/sign_up' => "users#sign_up"
       post '/friends/add_friend' => "friends#add_friend"
+      post '/friends/accept_friend' => "friends#accept_friend"
       resources :questions
     end
   end

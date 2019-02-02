@@ -1,8 +1,7 @@
 class Message < ApplicationRecord
 	belongs_to :messageable, polymorphic: true
-	belongs_to :user
-	attr_accessor :num_pages, :title
-	after_create {|book| book.message 'create' }
+	belongs_to :user	
+	after_create {|message| message.message 'create' }
 	# after_update {|book| book.message 'update' }
 	# after_destroy {|book| book.message 'destroy' }
 

@@ -5,6 +5,17 @@ redis.subscribe('new_message');
 
 io.on('connection', function(socket){
   redis.on('message', function(channel, message){
-    socket.emit(JSON.parse(message).to, JSON.parse(message));
+  	new_message = JSON.parse(message);
+
+  	if(new_message.resource == "messages")
+    	socket.emit(new_message.to, new_message);
+    else if(new_message.resource == "friends"){
+    	if(new_message.action == "create"){
+    		socket.emit(new_message.user, new_message);
+    	}
+    	else if(new_message.action == "update"){
+			socket.emit(new_message.suser, new_message);
+    	}
+    }
   });
 });
