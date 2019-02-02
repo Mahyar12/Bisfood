@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       post '/new_message' => "messages#new_message"
       get '/messages' => "messages#index"
       get '/chats' => "chats#index"
+      post '/users/sign_up' => "users#sign_up"
       resources :questions
     end
   end
