@@ -5,6 +5,7 @@ ActiveAdmin.register Question do
 # permit_params :list, :of, :attributes, :on, :model
 #
 # or
+permit_params :content, :qtype_id
 #
 # permit_params do
 #   permitted = [:permitted, :attributes]

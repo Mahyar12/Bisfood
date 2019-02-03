@@ -4,6 +4,7 @@ ActiveAdmin.register Answer do
 #
 # permit_params :list, :of, :attributes, :on, :model
 #
+permit_params :answer_type, :answer_type_id, :answer, :correct
 # or
 #
 # permit_params do

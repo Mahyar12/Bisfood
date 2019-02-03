@@ -4,6 +4,7 @@ ActiveAdmin.register Qtype do
 #
 # permit_params :list, :of, :attributes, :on, :model
 #
+permit_params :name
 # or
 #
 # permit_params do

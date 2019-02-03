@@ -4,6 +4,7 @@ ActiveAdmin.register Category do
 #
 # permit_params :list, :of, :attributes, :on, :model
 #
+permit_params :category_answer_id, :category_question_id, :name
 # or
 #
 # permit_params do

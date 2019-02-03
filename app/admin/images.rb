@@ -4,6 +4,7 @@ ActiveAdmin.register Image do
 #
 # permit_params :list, :of, :attributes, :on, :model
 #
+permit_params :name, :image
 # or
 #
 # permit_params do
