@@ -83,7 +83,12 @@ module Api
               {id: ans.id, value: tg.words, correct: 1 }
             end
           end
-            { id: q.id, content: @content, qtype: q.qtype.name, correct: @correct, answers: @a }   
+            @category = q.categories.first
+            if @category == nil
+              { id: q.id, content: @content, qtype: q.qtype.name, correct: @correct, answers: @a, category_name: "", category_id: -1 }   
+            else
+              { id: q.id, content: @content, qtype: q.qtype.name, correct: @correct, answers: @a, category_name: @category.name, category_id: @category.id }   
+            end
         end
         render json: {questions: @response}.to_json
       end
