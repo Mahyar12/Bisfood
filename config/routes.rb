@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post '/users/sign_up' => "users#sign_up"
       post '/friends/add_friend' => "friends#add_friend"
       post '/friends/accept_friend' => "friends#accept_friend"
+      get 'friends' => "friends#index"
       resources :questions
     end
   end
