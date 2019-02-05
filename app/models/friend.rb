@@ -9,7 +9,7 @@ class Friend < ApplicationRecord
 		msg = { resource: 'friends',
 		        action: action,
 		        id: self.id,
-		        obj: self,
+		        status: self.status,
 		        user: self.user.user_identification,
 		        suser: self.suser.user_identification
 		    }

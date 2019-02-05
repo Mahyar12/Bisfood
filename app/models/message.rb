@@ -11,7 +11,7 @@ class Message < ApplicationRecord
 		msg = { resource: 'messages',
 		        action: action,
 		        id: self.id,
-		        obj: self,
+		        message: self.mtext,
 		        from: self.user.user_identification,
 		        to: u
 		    }

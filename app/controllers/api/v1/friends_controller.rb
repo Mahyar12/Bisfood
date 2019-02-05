@@ -6,10 +6,14 @@ module Api
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
           if @u != nil and @f != nil
+            if not (@u.friends.where("suser_id = ?", @f.id).empty? or @u.sfriends.where("user_id = ?", @f.id).empty?)
+              render json: { result: "ERROR", message: "Duplicate friend request", status: 404 }
+              return
+            end
             new_friend = @u.friends.new(status: 1)
             new_friend.suser = @f 
           
-            if new_friend.save
+            if new_friend.save 
               render json: {result: "OK", message: "User added as friend successfully", status: 200}
             else
               render json: {result: "ERROR", message: "Error friend.", status: 404}
