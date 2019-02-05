@@ -31,7 +31,7 @@ module Api
             new_friend.status = 2
             chat = @u.chats.new 
             chat.suser = @f             
-            if new_friend.save
+            if new_friend.save and chat.save
               render json: {result: "OK", message: "User added as friend successfully", status: 200}
             else
               render json: {result: "ERROR", message: "Error friend.", status: 404}
