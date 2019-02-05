@@ -40,7 +40,12 @@ module Api
       end
 
       def get_questions
-        @questions = Question.all.shuffle[0..params[:count].to_i]
+        if params[:count].nil?
+          render json: {status: 500, result: "ERROR"}
+          return
+        end
+        ids = Question.pluck(:id).shuffle[0..params[:count].to_i]
+        @questions = Question.where(id: ids)
 
         @response = @questions.map do |q|
           @answers = []

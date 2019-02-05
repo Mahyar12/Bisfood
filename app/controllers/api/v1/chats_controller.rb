@@ -3,7 +3,7 @@ module Api
     class ChatsController < Api::V1::BaseController
       # require 'httparty'
       def index 
-        if params.has_key? (:user_id)            
+        if params.has_key? (:user_id) and not params[:user_id].nil?
           u = User.find_by_user_identification(params[:user_id])          
           @chats = Chat.where("user_id = ? or suser_id = ?", u.id, u.id)
           @response = @chats.map do |c|

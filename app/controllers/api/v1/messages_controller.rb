@@ -2,7 +2,7 @@ module Api
   module V1
     class MessagesController < Api::V1::BaseController
         def new_message
-          if params.has_key?(:from) and params.has_key?(:to) and params.has_key?(:message)
+          if params.has_key?(:from) and not params[:from].nil? and params.has_key?(:to) and not params[:to].nil? and params.has_key?(:message) and not params[:message].nil?
             @u1 = User.find_by_user_identification(params[:from])
             @u2 = User.find_by_user_identification(params[:to])
             if @u1 == nil or @u2 == nil
@@ -20,7 +20,7 @@ module Api
         end
 
         def index 
-          if params.has_key?(:chat_id)
+          if params.has_key?(:chat_id) and not params[:chat_id].nil?
             @messages = Chat.find(params[:chat_id]).messages
             @response = @messages.map do |m|
               { id: m.id, message: m.mtext, sender: m.user.user_identification }   

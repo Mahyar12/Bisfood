@@ -2,7 +2,7 @@ module Api
   module V1
     class FriendsController < Api::V1::BaseController      
       def add_friend 
-        if params.has_key? (:user_id) and params.has_key? (:friend_id)
+        if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
           if @u != nil and @f != nil
@@ -23,7 +23,7 @@ module Api
       end
 
       def accept_friend
-        if params.has_key? (:user_id) and params.has_key? (:friend_id)
+        if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
           if @u != nil and @f != nil
