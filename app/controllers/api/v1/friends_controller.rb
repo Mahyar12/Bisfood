@@ -23,7 +23,17 @@ module Api
               render json: { result: "ERROR", message: "Duplicate friend request", status: 404 }
               return
             end
-            new_friend = f1.first or f2.first or @u.friends.new
+            puts f1.first 
+            puts f2.first
+            puts @u.friends.new
+            puts "heeeeee"
+            if not f1.first.nil?
+              new_friend = f1.first 
+            elsif not f2.first.nil?
+              new_friend = f2.first
+            else 
+              new_friend = @u.friends.new
+            end
             new_friend.status = 1
             new_friend.suser = @f 
           

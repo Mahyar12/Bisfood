@@ -11,12 +11,18 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 /config/database.yml
+
 /storage/*
+!/storage/.keep
+
 /Gemfile.lock
 /config/puma.rb
 /realtime/node_modules/*
 /realtime/package-lock.json
 # Ignore all logfiles and tempfiles.
+/.bundle
+/vendor/bundle
+
 /log/*
 /tmp/*
 !/log/.keep
