@@ -16,7 +16,7 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates_uniqueness_of :user_identification
 
-	def playfab_authenticate id, session
+  def playfab_authenticate id, session
   	# url = "https://#{title_id}.playfabapi.com/Client/LoginWithCustomID"
   	url = "https://631A.playfabapi.com/Client/GetAccountInfo"
 		headers = {'Content-Type' => 'application/json', 'X-Authentication' => session }

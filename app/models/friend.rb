@@ -15,5 +15,5 @@ class Friend < ApplicationRecord
 		    }
 
 		$redis.publish 'new_message', msg.to_json
-	end
+  end
 end
