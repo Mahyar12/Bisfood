@@ -42,9 +42,10 @@ module Api
         if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
-          f1 = @u.friends.where("suser_id = ?", @f.id)
-          f2 = @u.sfriends.where("user_id = ?", @f.id)
+          
           if @u != nil and @f != nil      
+            f1 = @u.friends.where("suser_id = ?", @f.id)
+            f2 = @u.sfriends.where("user_id = ?", @f.id)
             # puts f2.first.status   
             if (not f1.empty? and ((f1.first.status == 1) or (f1.first.status == 2))) or (not f2.empty? and ((f2.first.status == 1) or (f2.first.status == 2))) 
               render json: { result: "ERROR", message: "Duplicate friend request", status: 404 }
@@ -79,7 +80,7 @@ module Api
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
           if @u != nil and @f != nil
-            new_friend = Friend.find_by_user_id(@u.id)
+            new_friend = @u.friends.where("suser_id = ?", @f.id)
             if new_friend.status != 1 
               render json: { result: "ERROR", message: "Cannot accept friend. It is already accepted or rejected." , status: 404 }
               return
