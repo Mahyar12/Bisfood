@@ -8,6 +8,8 @@ module Api
           @response = @f.map do |friend|
             {id: friend.id, status: friend.status, user_id: friend.user.user_identification,  suser_id: friend.suser.user_identification, created_at: friend.created_at, updated_at: friend.updated_at}
           end
+          puts "hhhh"
+          puts @response.empty?
           render json: @response
         else
           render json: {result: "ERROR", message: "Not enough parameters are sent", status: 404}
@@ -54,13 +56,16 @@ module Api
 
             if not f1.first.nil?
               new_friend = f1.first 
+              new_friend.suser = @f 
             elsif not f2.first.nil?
               new_friend = f2.first
+              new_friend.user = @f 
             else 
               new_friend = @u.friends.new
+              new_friend.suser = @f
             end
             new_friend.status = 1
-            new_friend.suser = @f 
+            
           
             if new_friend.save 
               render json: {result: "OK", message: "User added as friend successfully", status: 200}
@@ -80,7 +85,11 @@ module Api
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
           if @u != nil and @f != nil
-            new_friend = @u.friends.where("suser_id = ?", @f.id)
+            new_friend = @u.friends.where("suser_id = ?", @f.id).first
+            if new_friend.nil?
+              render json: { result: "ERROR", message: "No friend reqeust." , status: 404 }
+              return
+            end
             if new_friend.status != 1 
               render json: { result: "ERROR", message: "Cannot accept friend. It is already accepted or rejected." , status: 404 }
               return
