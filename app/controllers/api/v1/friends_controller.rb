@@ -56,10 +56,12 @@ module Api
 
             if not f1.first.nil?
               new_friend = f1.first 
+              new_friend.user = @u
               new_friend.suser = @f 
             elsif not f2.first.nil?
               new_friend = f2.first
-              new_friend.user = @f 
+              new_friend.user = @u
+              new_friend.suser = @f 
             else 
               new_friend = @u.friends.new
               new_friend.suser = @f
