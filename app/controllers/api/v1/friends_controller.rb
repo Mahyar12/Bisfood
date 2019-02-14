@@ -16,6 +16,34 @@ module Api
         end
       end
 
+      def play_request
+        if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
+          @u = User.find_by_user_identification(params[:user_id])
+          @f = User.find_by_user_identification(params[:friend_id])          
+          if @u != nil and @f != nil 
+            if Friend.where("(user_id = ? and suser_id = ?) or (user_id = ? and suser_id = ?)", @u.id, @f.id, @f.id, @u.id).first.nil?
+              render json: {result: "ERROR", message: "Users are not friends", status: 404}  
+              return
+            end     
+            msg = { 
+                resource: 'games',
+                action: "create",
+                id: @u.id,
+                message: "Let's play game",
+                from: @u.user_identification,
+                to: @f.user_identification
+            }
+
+            $redis.publish 'new_message', msg.to_json
+            render json: {status: 200}
+          else
+            render json: {result: "ERROR", message: "No valid playfab id", status: 404}
+          end
+        else
+          render json: {result: "ERROR", message: "Not enough parameters are sent", status: 404}
+        end
+      end
+
       def unfollow
         if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
           @u1 = User.find_by_user_identification(params[:user_id])

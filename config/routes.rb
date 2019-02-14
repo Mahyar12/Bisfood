@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post '/friends/accept_friend' => "friends#accept_friend"
       get '/friends' => "friends#index"
       post '/friends/unfollow' => "friends#unfollow"
+      post '/friends/play_request' => 'friends#play_request'
       resources :questions
     end
   end
