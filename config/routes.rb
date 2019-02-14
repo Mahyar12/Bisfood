@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get '/friends' => "friends#index"
       post '/friends/unfollow' => "friends#unfollow"
       post '/friends/play_request' => 'friends#play_request'
+      post '/friends/reject_request' => 'friends#reject_request'
       resources :questions
     end
   end
