@@ -32,6 +32,7 @@ gem 'redis', '~> 4.0'
 gem 'activestorage'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'image_processing', '~> 1.2'
 
 gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'

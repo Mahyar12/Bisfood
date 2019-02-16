@@ -117,7 +117,7 @@ $("#form").submit(function(evt){
 	         	req.questions[0].answers[i]['answer_type_id']= response.files[i].id;
 	         console.log(req);
 	         $.ajax({
-		       url: "/add_question.json",
+		       url: "/api/add_question.json",
 		       type: 'POST',
 		       data: req,
 		       success: function (response) {
@@ -140,7 +140,7 @@ $("#form").submit(function(evt){
 	    });	    
 	    console.log(JSON.stringify(req));   
 	    $.ajax({
-	       url: "/add_question.json",
+	       url: "/api/add_question.json",
 	       type: 'POST',
 	       data: req,
 	       success: function (response) {
@@ -213,7 +213,7 @@ $("#form").submit(function(evt){
 	 	req.questions[0].answers.push({correct: 1, show_chars: $("#show-words").val(), words: words,  answer_type: "table"});
 	 	console.log(JSON.stringify(req));
 	 	$.ajax({
-	       url: "/add_question.json",
+	       url: "/api/add_question.json",
 	       type: 'POST',
 	       data: req,
 	       success: function (response) {
