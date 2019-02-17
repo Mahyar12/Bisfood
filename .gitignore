@@ -15,7 +15,7 @@
 /storage/*
 !/storage/.keep
 
-/Gemfile.lock
+Gemfile.lock
 /config/puma.rb
 /realtime/node_modules/*
 /realtime/package-lock.json
