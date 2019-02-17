@@ -100,7 +100,7 @@ module Api
           if q.qtype.name == "portrait"
             # CategoryAnswer.joins("INNER JOIN answers ON answers.id = category_answers.answer_id and answers.answer_type = 'image' ").joins("INNER JOIN answer_questions ON answer_questions.answer_id = answers.id").where("question_id <> ?", q.id).shuffle[0..2].each do |aq|
             q.categories.first.answers.shuffle[0..2].each do |aq|
-              @answers << aq.answer
+              @answers << aq 
             end
           else
             AnswerQuestion.where("question_id = ? and correct = ?", q.id, 0).shuffle[0..2].each do |aq|
