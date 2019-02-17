@@ -45,7 +45,9 @@ index do
    		end
    end
    column "Category" do |q|
-   		link_to q.categories.first.name, admin_category_path(q.categories.first)
+   		if not q.categories.first.nil?
+   			link_to q.categories.first.name, admin_category_path(q.categories.first)
+   		end
    end
 end
 
