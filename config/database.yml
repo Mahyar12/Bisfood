@@ -15,7 +15,7 @@ development:
   encoding: utf8
   database: bisfood_development
   username: mahyar
-  password: "$mah12abas@"
+  password: "123456"
 
 
 # Warning: The database defined as "test" will be erased and
