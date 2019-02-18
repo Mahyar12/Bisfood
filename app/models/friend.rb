@@ -11,7 +11,9 @@ class Friend < ApplicationRecord
 		        id: self.id,
 		        status: self.status,
 		        user: self.user.user_identification,
-		        suser: self.suser.user_identification
+		        username: self.user.username,
+		        suser: self.suser.user_identification,
+		        susername: self.suser.username
 		    }
 
 		$redis.publish 'new_message', msg.to_json

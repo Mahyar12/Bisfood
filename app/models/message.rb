@@ -13,7 +13,9 @@ class Message < ApplicationRecord
 		        id: self.id,
 		        message: self.mtext,
 		        from: self.user.user_identification,
-		        to: u
+		        from_username: self.user.username,
+		        to: u,
+		        to_username: u.username
 		    }
 
 		$redis.publish 'new_message', msg.to_json

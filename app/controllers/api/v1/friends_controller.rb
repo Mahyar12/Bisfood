@@ -31,7 +31,10 @@ module Api
                 message: "Let's play game",
                 room_id: params[:room_id],
                 from: @u.user_identification,
-                to: @f.user_identification
+                from_username: @u.username,
+                to: @f.user_identification,
+                to_username: @f.username
+
             }
 
             $redis.publish 'new_message', msg.to_json
@@ -57,8 +60,10 @@ module Api
                 resource: 'games',
                 action: "update",
                 message: "Rejected game",
-                from: @f.user_identification,
-                to: @u.user_identification
+                from: @u.user_identification,
+                from_username: @u.username,
+                to: @f.user_identification,
+                to_username: @f.username
             }
 
             $redis.publish 'new_message', msg.to_json
