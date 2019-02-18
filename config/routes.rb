@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       post '/friends/unfollow' => "friends#unfollow"
       post '/friends/play_request' => 'friends#play_request'
       post '/friends/reject_request' => 'friends#reject_request'
+      get '/users/search' => 'users#search'
       resources :questions
     end
   end

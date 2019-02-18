@@ -16,6 +16,10 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates_uniqueness_of :user_identification
 
+  def self.text_search(query)
+    self.where("similarity(username, ?) > 0.2", query).order("similarity(username, #{ActiveRecord::Base.connection.quote(query)}) DESC").limit(10)
+  end
+
   def playfab_authenticate id, session
   	# url = "https://#{title_id}.playfabapi.com/Client/LoginWithCustomID"
   	url = "https://631A.playfabapi.com/Client/GetAccountInfo"
