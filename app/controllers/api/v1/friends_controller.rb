@@ -6,7 +6,7 @@ module Api
           @u = User.find_by_user_identification(params[:user_id])
           @f = Friend.where("user_id = ? or suser_id = ?", @u.id, @u.id)
           @response = @f.map do |friend|
-            {id: friend.id, status: friend.status, user_id: friend.user.user_identification,  suser_id: friend.suser.user_identification, created_at: friend.created_at, updated_at: friend.updated_at}
+            {id: friend.id, status: friend.status, user_id: friend.user.user_identification, username: friend.user.username,  suser_id: friend.suser.user_identification, susername: friend.suser.username,created_at: friend.created_at, updated_at: friend.updated_at}
           end
           puts "hhhh"
           puts @response.empty?
