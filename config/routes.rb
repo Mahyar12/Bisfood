@@ -10,9 +10,11 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
       post '/users/login' => 'user_token#create'
+      post '/users/profile' => "users#update_profile"
       post '/add_question' => "questions#add_questions"
       post '/add_questions_file' => "questions#add_questions_file"
       get '/questions' => "questions#get_questions"
+      get '/users/profile' => "users#profile"
       post '/new_message' => "messages#new_message"
       get '/messages' => "messages#index"
       get '/chats' => "chats#index"
