@@ -23,24 +23,31 @@ index do
    		q.answers.each do |a|
 
    			if a.answer_type == "image" or a.answer_type == "portrait"
-   			i	image_tag(url_for(Image.find(a.answer_type_id).image.variant(combine_options: {
+				im = Image.find_by_id(a.answer_type_id).image.variant(combine_options: {
                 auto_orient: true,
                 gravity: "center",
                 resize: "50x50^",
                 crop: "50x50+0+0"
-                }))) 
+                })
+				if not im.nil?
+					i	image_tag(url_for(im)) 
+				end
    			 
    			elsif a.answer_type == "text" or a.answer_type == "twoans"
-   				b = AnswerText.find(a.answer_type_id)
+   				b = AnswerText.find_by_id(a.answer_type_id)
+				if not b.nil?
    				if a.answer_questions.where("question_id = ?", q.id).first.correct == 1
    					li strong b.atext 
    				else 
    					li b.atext 
    				end
+				end
    			else
-   				span TableGame.find(a.answer_type_id).show_chars
-   				li TableGame.find(a.answer_type_id).words
-
+				tg = TableGame.find_by_id(a.answer_type_id)
+				if not tg.nil?
+   					span TableGame.find(a.answer_type_id).show_chars
+   					li TableGame.find(a.answer_type_id).words
+				end
    			end   		
    		end
    end

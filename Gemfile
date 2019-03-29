@@ -39,6 +39,7 @@ gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resour
 gem 'activeadmin', git: 'https://github.com/activeadmin/activeadmin'
 gem 'devise'
 gem 'httparty'
+gem 'knock'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

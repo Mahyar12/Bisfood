@@ -16,6 +16,8 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates_uniqueness_of :user_identification
 
+  alias authenticate valid_password?
+
   def self.text_search(query)
     self.where("similarity(username, ?) > 0.2", query).order("similarity(username, #{ActiveRecord::Base.connection.quote(query)}) DESC").limit(10)
   end

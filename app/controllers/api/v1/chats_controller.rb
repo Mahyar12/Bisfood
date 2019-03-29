@@ -7,7 +7,9 @@ module Api
           u = User.find_by_user_identification(params[:user_id])          
           @chats = Chat.where("user_id = ? or suser_id = ?", u.id, u.id)
           @response = @chats.map do |c|
-            {id: c.id, user_id: c.user.user_identification, suser_id: c.suser.user_identification}
+            if not c.user.nil? and not c.suser.nil?
+              {id: c.id, user_id: c.user.user_identification, username: c.user.username, suser_id: c.suser.user_identification, susername: c.suser.username}
+            end
           end
           render json: @response
         else

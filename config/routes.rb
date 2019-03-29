@@ -1,6 +1,7 @@
 require 'api_constraints'
 
 Rails.application.routes.draw do
+  
   # resources :friends
   # resources :messages
   # resources :chats
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      post '/users/login' => 'user_token#create'
       post '/add_question' => "questions#add_questions"
       post '/add_questions_file' => "questions#add_questions_file"
       get '/questions' => "questions#get_questions"

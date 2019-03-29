@@ -7,14 +7,14 @@ class Message < ApplicationRecord
 
 	def message action
 		# u = self.subs.chat.user.user_identification
-		u = (self.messageable.user.user_identification == self.user.user_identification)? self.messageable.suser.user_identification : self.messageable.user.user_identification
+		u = (self.messageable.user.user_identification == self.user.user_identification)? self.messageable.suser : self.messageable.user
 		msg = { resource: 'messages',
 		        action: action,
 		        id: self.id,
 		        message: self.mtext,
 		        from: self.user.user_identification,
 		        from_username: self.user.username,
-		        to: u,
+		        to: u.user_identification,
 		        to_username: u.username
 		    }
 
