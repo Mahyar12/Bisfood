@@ -103,11 +103,11 @@ module Api
       end
 
       def add_friend 
-        if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
+        if params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil? 
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
           
-          if @u != nil and @f != nil      
+          if @u != nil and @f != nil  and @u == current_user    
             f1 = @u.friends.where("suser_id = ?", @f.id)
             f2 = @u.sfriends.where("user_id = ?", @f.id)
             # puts f2.first.status   
@@ -148,7 +148,7 @@ module Api
         if params.has_key? (:accept) and not params[:accept].nil? and params.has_key? (:user_id) and not params[:user_id].nil? and params.has_key? (:friend_id) and not params[:friend_id].nil?
           @u = User.find_by_user_identification(params[:user_id])
           @f = User.find_by_user_identification(params[:friend_id])
-          if @u != nil and @f != nil
+          if @u != nil and @f != nil and @f == current_user
             new_friend = @u.friends.where("suser_id = ?", @f.id).first
             if new_friend.nil?
               render json: { result: "ERROR", message: "No friend reqeust." , status: 404 }
