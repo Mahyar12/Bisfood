@@ -2,6 +2,13 @@ require 'api_constraints'
 
 Rails.application.routes.draw do
   
+  # resources :user_cups
+  # resources :game_profiles
+  # resources :user_answers
+  # resources :user_competitions
+  # resources :competitions
+  # resources :currency_packs
+  # resources :cups
   # resources :friends
   # resources :messages
   # resources :chats
@@ -26,6 +33,8 @@ Rails.application.routes.draw do
       post '/friends/play_request' => 'friends#play_request'
       post '/friends/reject_request' => 'friends#reject_request'
       get '/users/search' => 'users#search'
+      get '/currency_packs' => 'currency_packs#index'
+      post '/currency_packs/purchase' => 'currency_packs#buy_pack'
       resources :questions
     end
   end

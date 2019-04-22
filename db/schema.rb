@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_29_204937) do
+ActiveRecord::Schema.define(version: 2019_04_20_094007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -111,12 +111,43 @@ ActiveRecord::Schema.define(version: 2019_03_29_204937) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "competitions", force: :cascade do |t|
+    t.integer "status"
+    t.integer "winner"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "cups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "currency_packs", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "amount"
+    t.integer "discount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "friends", force: :cascade do |t|
     t.integer "user_id"
     t.integer "suser_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+  end
+
+  create_table "game_profiles", force: :cascade do |t|
+    t.integer "points"
+    t.integer "money"
+    t.integer "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -157,6 +188,32 @@ ActiveRecord::Schema.define(version: 2019_03_29_204937) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_answers", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "user_id"
+    t.integer "competition_id"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_competitions", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "competition_id"
+    t.integer "status"
+    t.integer "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_cups", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "cup_id"
+    t.integer "cup_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -173,7 +230,6 @@ ActiveRecord::Schema.define(version: 2019_03_29_204937) do
     t.integer "age"
     t.text "biography"
     t.string "city"
-    t.integer "money"
     t.integer "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -61,6 +61,7 @@ module Api
           if params.has_key? (:device_id) and not params[:device_id].nil? and params.has_key? (:username) and not params[:username].nil? and params.has_key? (:email) and not params[:email].nil? and params.has_key? (:password) and not params[:password].nil?
             @u = User.new(username: params[:username], email: params[:email], password: params[:password], password_confirmation: params[:password], device_id: params[:device_id])
             @u.user_identification = SecureRandom.urlsafe_base64(12)
+            @u.game_profile = GameProfile.create
             if params.has_key? (:phone_number) and not params[:phone_number].nil?
               current_user.phone_number = params[:phone_number]
             end
@@ -85,6 +86,8 @@ module Api
             render json: {result: "ERROR", message: "not enough parameters are sent", status: 404}
           end
         rescue Exception => e 
+          logger.error e.message
+          e.backtrace.each { |line| logger.error line }
           render json: {result: "ERROR", message: "Error creating user. Duplication user.", status: 404}
         end          
       end

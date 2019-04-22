@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @game_profile.points %>
+</p>
+
+<p>
+  <strong>Money:</strong>
+  <%= @game_profile.money %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @game_profile.level %>
+</p>
+
+<%= link_to 'Edit', edit_game_profile_path(@game_profile) %> |
+<%= link_to 'Back', game_profiles_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_cup.user_id %>
+</p>
+
+<p>
+  <strong>Cup:</strong>
+  <%= @user_cup.cup_id %>
+</p>
+
+<p>
+  <strong>Cup count:</strong>
+  <%= @user_cup.cup_count %>
+</p>
+
+<%= link_to 'Edit', edit_user_cup_path(@user_cup) %> |
+<%= link_to 'Back', user_cups_path %>

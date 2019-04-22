@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Currency Packs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Amount</th>
+      <th>Discount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @currency_packs.each do |currency_pack| %>
+      <tr>
+        <td><%= currency_pack.name %></td>
+        <td><%= currency_pack.price %></td>
+        <td><%= currency_pack.amount %></td>
+        <td><%= currency_pack.discount %></td>
+        <td><%= link_to 'Show', currency_pack %></td>
+        <td><%= link_to 'Edit', edit_currency_pack_path(currency_pack) %></td>
+        <td><%= link_to 'Destroy', currency_pack, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Currency Pack', new_currency_pack_path %>

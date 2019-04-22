@@ -1,0 +1,37 @@
+<%= form_with(model: currency_pack, local: true) do |form| %>
+  <% if currency_pack.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(currency_pack.errors.count, "error") %> prohibited this currency_pack from being saved:</h2>
+
+      <ul>
+      <% currency_pack.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.number_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :discount %>
+    <%= form.number_field :discount %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

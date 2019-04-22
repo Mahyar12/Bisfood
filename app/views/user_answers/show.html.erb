@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @user_answer.question_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_answer.user_id %>
+</p>
+
+<p>
+  <strong>Competition:</strong>
+  <%= @user_answer.competition_id %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @user_answer.status %>
+</p>
+
+<%= link_to 'Edit', edit_user_answer_path(@user_answer) %> |
+<%= link_to 'Back', user_answers_path %>

@@ -12,9 +12,22 @@ class User < ApplicationRecord
   
   has_many :messages
 
+  has_many :user_cups
+  has_many :cups, :through => :user_cups
+
+  has_many :user_competitions
+  has_many :competitions, :through => :user_competitions
+
+  has_many :user_answers
+  has_one :game_profile
+  
+  
 	before_validation :downcase_username
   validates_uniqueness_of :username
   validates_uniqueness_of :user_identification
+  validates_uniqueness_of :device_id
+
+  
 
   alias authenticate valid_password?
 
@@ -33,6 +46,20 @@ class User < ApplicationRecord
 		}.to_json, :headers => headers)
 		return response["status"] == "OK"
   end
+
+  def serializable_hash(options = nil)
+    options = options.try(:dup) || {}
+    options[:except] = Array(options[:except])
+
+    if options[:force_except]
+      options[:except].concat Array(options[:force_except])
+    else
+      options[:except].concat [:device_id]
+    end
+
+    super(options)
+  end
+
 
 	private
 	def downcase_username
